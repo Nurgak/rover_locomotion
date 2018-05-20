@@ -1,6 +1,6 @@
 # Rover Locomotion
 
-This repository contains software, based on the ROS framework, for universal locomotion of a wheeled rover such as [ExoMars rover](https://en.wikipedia.org/wiki/ExoMars_(rover) where every wheel can be steered. It uses the [Ackermann steering geometry](https://en.wikipedia.org/wiki/Ackermann_steering_geometry) and sets the drive joint velocities according to the position of the wheels and the radius as defined in the [URDF](http://wiki.ros.org/urdf) file.
+This repository contains software, based on the ROS framework, for universal locomotion of a wheeled rover such as [ExoMars rover](https://en.wikipedia.org/wiki/ExoMars_(rover)) where every wheel can be steered. It uses the [Ackermann steering geometry](https://en.wikipedia.org/wiki/Ackermann_steering_geometry) and sets the drive joint velocities according to the position of the wheels and the radius as defined in the [URDF](http://wiki.ros.org/urdf) file.
 
 The steering joints are limited to `[-90; +90]` degrees to represent realistic revolute steering mechanism (contrary to continous joints).
 
