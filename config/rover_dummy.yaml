@@ -1,0 +1,61 @@
+# Platform specific parameters
+wheel_radius: 0.125
+
+# Publish all joint states from a joint state controller
+joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+    
+# Controllers for all the joints, need to be defined in the URDF file
+controllers:
+    # Steering
+    joint_steer_front_left_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_front_left
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_front_right_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_front_right
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_center_left_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_center_left
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_center_right_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_center_right
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_back_left_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_back_left
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_back_right_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_back_right
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+        
+    # Driving
+    joint_drive_front_left_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_front_left
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_front_right_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_front_right
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_center_left_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_center_left
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_center_right_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_center_right
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_back_left_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_back_left
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_back_right_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_back_right
+        pid: {p: 1.0, i: 0.0, d: 0.0}

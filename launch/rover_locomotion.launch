@@ -1,0 +1,81 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Platform specific parameters -->
+    <arg name="rover_name" default="rover_dummy"/>
+    <arg name="rover_xacro" default="$(find rover_locomotion)/urdf/rover_dummy.xacro"/>
+    <arg name="rover_parameters" default="$(find rover_locomotion)/config/rover_dummy.yaml"/>
+
+    <!-- Gazebo simulation parameters -->
+    <arg name="sim_paused" default="true"/>
+    <arg name="sim_use_sim_time" default="true"/>
+    <arg name="sim_gui" default="true"/>
+    <arg name="sim_headless" default="false"/>
+    <arg name="sim_debug" default="false"/>
+    
+    <!-- Launch the Gazebo simulation environment -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find rover_world)/worlds/blank.world"/>
+        <arg name="debug" value="$(arg sim_debug)" />
+        <arg name="gui" value="$(arg sim_gui)" />
+        <arg name="paused" value="$(arg sim_paused)"/>
+        <arg name="use_sim_time" value="$(arg sim_use_sim_time)"/>
+        <arg name="headless" value="$(arg sim_headless)"/>
+    </include>
+
+    <group ns="$(arg rover_name)">
+        <!-- Load rover physical representation -->
+        <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg rover_xacro)'" />
+
+        <!-- Load rover controller parameters to the rover_locomotion namespace -->
+        <rosparam file="$(arg rover_parameters)" command="load"/>
+
+        <!-- Load rover joint controllers to the rover_locomotion namespace -->
+        <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" args="joint_state_controller
+            controllers/joint_steer_front_left_position_controller
+            controllers/joint_steer_front_right_position_controller
+            controllers/joint_steer_center_left_position_controller
+            controllers/joint_steer_center_right_position_controller
+            controllers/joint_steer_back_left_position_controller
+            controllers/joint_steer_back_right_position_controller
+            controllers/joint_drive_front_left_velocity_controller
+            controllers/joint_drive_front_right_velocity_controller
+            controllers/joint_drive_center_left_velocity_controller
+            controllers/joint_drive_center_right_velocity_controller
+            controllers/joint_drive_back_left_velocity_controller
+            controllers/joint_drive_back_right_velocity_controller"/>
+
+        <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+        <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" args="-param robot_description -urdf
+            -x 0.0
+            -y 0.0
+            -z 2.0
+            -R 0.0
+            -P 0.0
+            -Y 0.0
+            -J joint_steer_center_left 0.0
+            -J joint_steer_center_right 0.0
+            -J joint_steer_back_left 0.0
+            -J joint_steer_back_right 0.0
+            -J joint_steer_front_left 0.0
+            -J joint_steer_front_right 0.0
+            -J joint_drive_center_left 0.0
+            -J joint_drive_center_right 0.0
+            -J joint_drive_back_left 0.0
+            -J joint_drive_back_right 0.0
+            -J joint_drive_front_left 0.0
+            -J joint_drive_front_right 0.0
+            -model $(arg rover_name)"/>
+        
+        <!-- Create transform frames from the joint states, must be in the rover namespace -->
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+        
+        <!-- Publish ground truth transform frame from odometry, must be in the rover namespace -->
+        <node pkg="message_to_tf" type="message_to_tf" name="ground_truth_tf">
+            <param name="frame_id" value="map" />
+            <param name="odometry_topic" value="odom" />
+        </node>
+
+        <!-- Start the rover locomotion node -->
+        <node name="rover_locomotion" pkg="rover_locomotion" type="rover_locomotion.py"/>
+    </group>
+</launch>

@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<launch>
+    <!-- Load the dummy rover parameters -->
+    <rosparam file="$(find rover_locomotion)/test/rover_locomotion_test.yaml" command="load"/>
+
+    <!-- Do not change the TF positions, they are hard coded for the unit test -->
+    <node pkg="tf" type="static_transform_publisher" name="wheel_front_left_broadcaster" args="1 1 0 0 0 0 base_link wheel_front_left 50" />
+    <node pkg="tf" type="static_transform_publisher" name="wheel_front_right_broadcaster" args="1 -1 0 0 0 0 base_link wheel_front_right 50" />
+    <node pkg="tf" type="static_transform_publisher" name="wheel_back_left_broadcaster" args="-1 1 0 0 0 0 base_link wheel_back_left 50" />
+    <node pkg="tf" type="static_transform_publisher" name="wheel_back_right_broadcaster" args="-1 -1 0 0 0 0 base_link wheel_back_right 50" />
+
+    <!-- Start the node to be tested -->
+    <node name="rover_locomotion" pkg="rover_locomotion" type="rover_locomotion.py"/>
+
+    <!-- Begin the test -->
+    <test test-name="rover_locomotion_test" pkg="rover_locomotion" type="rover_locomotion_test.py"/>
+</launch>

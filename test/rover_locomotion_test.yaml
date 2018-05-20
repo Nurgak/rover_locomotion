@@ -1,0 +1,34 @@
+wheel_radius: 0.5
+controllers:
+    joint_steer_front_left_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_front_left
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_front_right_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_front_right
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_back_left_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_back_left
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_steer_back_right_position_controller:
+        type: effort_controllers/JointPositionController
+        joint: joint_steer_back_right
+        pid: {p: 5.0, i: 0.1, d: 0.0}
+    joint_drive_front_left_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_front_left
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_front_right_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_front_right
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_back_left_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_back_left
+        pid: {p: 1.0, i: 0.0, d: 0.0}
+    joint_drive_back_right_velocity_controller:
+        type: effort_controllers/JointVelocityController
+        joint: joint_drive_back_right
+        pid: {p: 1.0, i: 0.0, d: 0.0}
