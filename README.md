@@ -19,9 +19,9 @@ A dummy six-wheeled rover URDF and launch file are provided for simulation in Ga
         <th>Offset turn</th>
     </tr>
     <tr>
-        <td>![Ackermann steering](media/rover_locomotion_ackermann.gif)</td>
-        <td>![Point-turn](media/rover_locomotion_point_turn.gif)</td>
-        <td>![Offset turn](media/rover_locomotion_offset_turn.gif)</td>
+        <td><img src="media/rover_locomotion_ackermann.gif" title="Ackermann steering"/></td>
+        <td><img src="media/rover_locomotion_point_turn.gif" title="Point-turn"/></td>
+        <td><img src="media/rover_locomotion_offset_turn.gif" title="Offset turn"/></td>
     </tr>
 </table>
 
